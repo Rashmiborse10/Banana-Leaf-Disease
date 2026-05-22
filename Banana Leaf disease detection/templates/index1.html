@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREEN Diagnosis - Plant Disease Detection</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-leaf nav-icon"></i>
+                <span class="brand-text">GREEN <span class="brand-accent">Diagnosis</span></span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active" data-page="home">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#detection" class="nav-link" data-page="detection">
+                    <i class="fas fa-search"></i> Detection
+                </a>
+                <a href="#prevention" class="nav-link" data-page="prevention">
+                    <i class="fas fa-shield-alt"></i> Prevention
+                </a>
+                <a href="#causes" class="nav-link" data-page="causes">
+                    <i class="fas fa-exclamation-triangle"></i> Causes
+                </a>
+                <a href="#history" class="nav-link" data-page="history">
+                    <i class="fas fa-clock"></i> History
+                </a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h1 class="hero-title">
+                        GREEN <span class="text-accent">Diagnosis</span>
+                    </h1>
+                    <p class="hero-description">
+                        Advanced AI-powered plant disease detection system to help farmers and gardeners 
+                        identify and treat plant diseases quickly and accurately.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="showPage('detection')">
+                            <i class="fas fa-search"></i> Start Detection
+                        </button>
+                        <button class="btn btn-secondary" onclick="showPage('prevention')">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <div class="container">
+                    <div class="features-grid">
+                        <div class="feature-card" onclick="showPage('detection')">
+                            <div class="feature-icon search">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>Disease Detection</h3>
+                            <p>Upload plant images for instant AI-powered disease identification with high accuracy.</p>
+                            <button class="feature-btn">Detect Now</button>
+                        </div>
+                        
+                        <div class="feature-card" onclick="showPage('prevention')">
+                            <div class="feature-icon prevention">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Prevention Guide</h3>
+                            <p>Learn effective prevention strategies to keep your plants healthy and disease-free.</p>
+                            <button class="feature-btn">Learn More</button>
+                        </div>
+                        
+                        <div class="feature-card" onclick="showPage('causes')">
+                            <div class="feature-icon causes">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h3>Disease Causes</h3>
+                            <p>Understand the root causes of common plant diseases and environmental factors.</p>
+                            <button class="feature-btn">Explore Causes</button>
+                        </div>
+                        
+                        <div class="feature-card" onclick="showPage('history')">
+                            <div class="feature-icon history">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>Detection History</h3>
+                            <p>View your previous disease detection results and track plant health over time.</p>
+                            <button class="feature-btn">View History</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <div class="container">
+                    <div class="about-content">
+                        <div class="about-text">
+                            <h2>Advanced Plant Health Monitoring</h2>
+                            <p>Our AI-powered system can detect common plant diseases including Sigatoka and Xanthomonas with high accuracy. Get instant results and actionable recommendations to protect your plants.</p>
+                            <ul class="about-features">
+                                <li><i class="fas fa-check-circle"></i> High accuracy disease detection</li>
+                                <li><i class="fas fa-check-circle"></i> Instant results and recommendations</li>
+                                <li><i class="fas fa-check-circle"></i> Comprehensive prevention guides</li>
+                            </ul>
+                        </div>
+                        <div class="about-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detection Page -->
+        <div id="detection" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Disease Detection</h1>
+                    <p>Upload an image of your plant leaf to detect diseases using our advanced AI model.</p>
+                </div>
+
+                <div class="detection-grid">
+                    <div class="upload-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-camera"></i> Upload Plant Image</h3>
+                            <p>Select a clear image of the plant leaf you want to analyze</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="upload-area" id="uploadArea">
+                                <div class="upload-content">
+                                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                                    <p>Drag & drop your image here or click to browse</p>
+                                    <input type="file" id="imageInput" accept="image/*" hidden>
+                                </div>
+                                <div class="image-preview" id="imagePreview" style="display: none;">
+                                    <img id="previewImg" alt="Preview">
+                                    <button class="remove-image" id="removeImage">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="connection-status">
+                                <button class="btn btn-outline" id="testConnection">
+                                    <i class="fas fa-wifi"></i> Test Connection
+                                </button>
+                                <span class="status-indicator" id="connectionStatus">
+                                    <i class="fas fa-circle"></i> Unknown
+                                </span>
+                            </div>
+
+                            <div class="action-buttons">
+                                <button class="btn btn-primary" id="predictBtn" disabled>
+                                    <i class="fas fa-search"></i> Detect Disease
+                                </button>
+                                <button class="btn btn-secondary" id="resetBtn">
+                                    <i class="fas fa-refresh"></i> Reset
+                                </button>
+                            </div>
+
+                            <div class="error-message" id="errorMessage" style="display: none;">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <span id="errorText"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-check-circle"></i> Detection Results</h3>
+                            <p>AI analysis results and recommendations</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="loading-state" id="loadingState" style="display: none;">
+                                <div class="spinner"></div>
+                                <p>Analyzing your image...</p>
+                            </div>
+
+                            <div class="empty-state" id="emptyState">
+                                <i class="fas fa-upload"></i>
+                                <p>Upload an image to see detection results</p>
+                            </div>
+
+                            <div class="results-content" id="resultsContent" style="display: none;">
+                                <div class="disease-result">
+                                    <h4>Disease Detected</h4>
+                                    <div class="disease-name" id="diseaseName"></div>
+                                    <div class="confidence" id="confidence"></div>
+                                </div>
+
+                                <div class="causes-section" id="causesSection" style="display: none;">
+                                    <h4>Possible Causes:</h4>
+                                    <p id="causesText"></p>
+                                </div>
+
+                                <div class="prevention-section" id="preventionSection" style="display: none;">
+                                    <h4>Prevention & Treatment:</h4>
+                                    <p id="preventionText"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="instructions-card">
+                    <h3>How to Get Best Results</h3>
+                    <div class="instructions-grid">
+                        <div class="instruction-item">
+                            <div class="instruction-number">1</div>
+                            <h4>Clear Image</h4>
+                            <p>Use a high-quality, well-lit image of the leaf</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-number">2</div>
+                            <h4>Focus on Symptoms</h4>
+                            <p>Ensure disease symptoms are clearly visible</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-number">3</div>
+                            <h4>Single Leaf</h4>
+                            <p>Focus on one leaf for better accuracy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prevention Page -->
+        <div id="prevention" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Disease Prevention Guide</h1>
+                    <p>Learn effective strategies to prevent plant diseases and maintain healthy crops.</p>
+                </div>
+
+                <div class="prevention-content">
+                    <div class="prevention-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shield-alt"></i> General Prevention Principles</h3>
+                        </div>
+                        <div class="prevention-grid">
+                            <div class="prevention-item">
+                                <div class="prevention-icon water">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <h4>Proper Watering</h4>
+                                <p>Water at the base of plants, avoid wetting leaves, and ensure good drainage.</p>
+                            </div>
+                            <div class="prevention-item">
+                                <div class="prevention-icon sun">
+                                    <i class="fas fa-sun"></i>
+                                </div>
+                                <h4>Adequate Sunlight</h4>
+                                <p>Ensure plants receive proper sunlight and air circulation.</p>
+                            </div>
+                            <div class="prevention-item">
+                                <div class="prevention-icon pruning">
+                                    <i class="fas fa-cut"></i>
+                                </div>
+                                <h4>Regular Pruning</h4>
+                                <p>Remove dead, diseased, or damaged plant parts immediately.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="disease-specific">
+                        <div class="disease-card sigatoka">
+                            <h3>Sigatoka Prevention</h3>
+                            <div class="disease-content">
+                                <h4>Key Prevention Strategies</h4>
+                                <ul>
+                                    <li>Improve drainage systems to reduce standing water</li>
+                                    <li>Increase plant spacing for better air circulation</li>
+                                    <li>Remove infected leaves immediately and destroy them</li>
+                                    <li>Apply preventive fungicide treatments during wet seasons</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="disease-card xanthomonas">
+                            <h3>Xanthomonas Prevention</h3>
+                            <div class="disease-content">
+                                <h4>Key Prevention Strategies</h4>
+                                <ul>
+                                    <li>Use disease-free seeds and planting materials</li>
+                                    <li>Implement crop rotation with non-host plants</li>
+                                    <li>Sanitize tools and equipment between plants</li>
+                                    <li>Apply copper-based bactericides preventively</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Causes Page -->
+        <div id="causes" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Disease Causes & Risk Factors</h1>
+                    <p>Understanding the root causes of plant diseases helps in developing effective prevention strategies.</p>
+                </div>
+
+                <div class="causes-content">
+                    <div class="environmental-factors">
+                        <h3><i class="fas fa-cloud"></i> Environmental Factors</h3>
+                        <div class="factors-grid">
+                            <div class="factor-card humidity">
+                                <div class="factor-icon">
+                                    <i class="fas fa-tint"></i>
+                                </div>
+                                <h4>High Humidity</h4>
+                                <p>Humidity above 80% creates ideal conditions for fungal spore germination.</p>
+                                <span class="risk-badge high">High Risk</span>
+                            </div>
+                            <div class="factor-card temperature">
+                                <div class="factor-icon">
+                                    <i class="fas fa-thermometer-half"></i>
+                                </div>
+                                <h4>Temperature Extremes</h4>
+                                <p>Both very high and low temperatures stress plants and reduce immunity.</p>
+                                <span class="risk-badge medium">Medium Risk</span>
+                            </div>
+                            <div class="factor-card circulation">
+                                <div class="factor-icon">
+                                    <i class="fas fa-wind"></i>
+                                </div>
+                                <h4>Poor Air Circulation</h4>
+                                <p>Stagnant air increases humidity around plants.</p>
+                                <span class="risk-badge low">Low Risk</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="risk-matrix">
+                        <h3>Risk Assessment Matrix</h3>
+                        <div class="matrix-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Risk Factor</th>
+                                        <th class="low">Low Risk</th>
+                                        <th class="medium">Medium Risk</th>
+                                        <th class="high">High Risk</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Humidity Level</td>
+                                        <td>&lt;60%</td>
+                                        <td>60-80%</td>
+                                        <td>&gt;80%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Temperature</td>
+                                        <td>20-25°C</td>
+                                        <td>15-20°C or 25-30°C</td>
+                                        <td>&lt;15°C or &gt;30°C</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rainfall</td>
+                                        <td>Moderate, well-drained</td>
+                                        <td>Heavy but drains well</td>
+                                        <td>Excessive, poor drainage</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Page -->
+        <div id="history" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Detection History</h1>
+                    <p>View and manage your previous plant disease detection results.</p>
+                </div>
+
+                <div class="history-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="historySearch" placeholder="Search by disease or filename...">
+                    </div>
+                    <div class="history-actions">
+                        <button class="btn btn-outline" id="exportHistory">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn btn-danger" id="clearHistory">
+                            <i class="fas fa-trash"></i> Clear All
+                        </button>
+                    </div>
+                </div>
+
+                <div class="history-content">
+                    <div class="empty-history" id="emptyHistory">
+                        <i class="fas fa-clock"></i>
+                        <h3>No Detection History</h3>
+                        <p>Start detecting plant diseases to see your history here.</p>
+                        <button class="btn btn-primary" onclick="showPage('detection')">
+                            Start Detection
+                        </button>
+                    </div>
+
+                    <div class="history-list" id="historyList"></div>
+                </div>
+
+                <div class="history-stats" id="historyStats" style="display: none;">
+                    <h3>Detection Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card healthy">
+                            <div class="stat-number" id="healthyCount">0</div>
+                            <div class="stat-label">Healthy Plants</div>
+                        </div>
+                        <div class="stat-card sigatoka">
+                            <div class="stat-number" id="sigatokaCount">0</div>
+                            <div class="stat-label">Sigatoka Cases</div>
+                        </div>
+                        <div class="stat-card xanthomonas">
+                            <div class="stat-number" id="xanthomonasCount">0</div>
+                            <div class="stat-label">Xanthomonas Cases</div>
+                        </div>
+                        <div class="stat-card confidence">
+                            <div class="stat-number" id="avgConfidence">0%</div>
+                            <div class="stat-label">Avg. Confidence</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
